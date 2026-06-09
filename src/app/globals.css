@@ -2,25 +2,71 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --color-text: lab(18 -23.94 18.76);
+  --foreground: var(--color-text);
+  --color-navy: #0b153d;
+  --color-accent: #3d574f;
+  --color-gold: #c5a059;
+  --color-gold-dark: #b5891b;
+  --color-gold-light: #fdf0d8;
+  --color-gold-pale: #f9efcf;
+  --color-label: #d98514;
+  --color-sage: #e8ecea75;
+  --color-sage-light: #d8dedb;
+  --color-sage-border: #cdd5d1;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-text: var(--color-text);
+  --color-navy: var(--color-navy);
+  --color-accent: var(--color-accent);
+  --color-gold: var(--color-gold);
+  --color-gold-dark: var(--color-gold-dark);
+  --color-gold-light: var(--color-gold-light);
+  --color-gold-pale: var(--color-gold-pale);
+  --color-label: var(--color-label);
+  --color-sage: var(--color-sage);
+  --color-sage-light: var(--color-sage-light);
+  --color-sage-border: var(--color-sage-border);
+  --font-sans: var(--font-noto-sans-jp), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+:lang(ja) {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  line-break: strict;
+}
+
+:lang(ja) .jp-prose {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+:lang(ja) .heading-balance {
+  text-wrap: balance;
+}
+
+:lang(ja) .lead-pretty {
+  text-wrap: pretty;
+}
+
+:lang(en) .heading-balance {
+  text-wrap: balance;
+}
+
+:lang(en) .lead-pretty {
+  text-wrap: pretty;
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  color: var(--color-text);
 }
