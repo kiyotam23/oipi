@@ -18,7 +18,7 @@ export function HeroSection({ lang, t }: HeroSectionProps) {
     <section id="about" className="relative overflow-hidden pb-24 pt-20">
       <div className="relative">
         <div
-          className="pointer-events-auto absolute inset-y-0 right-0 z-20 hidden w-[clamp(420px,50vw,920px)] lg:block"
+          className="pointer-events-auto absolute inset-y-0 right-0 z-20 hidden w-[clamp(460px,54vw,960px)] lg:block"
           aria-hidden
         >
           <HeroVisual />
@@ -32,29 +32,28 @@ export function HeroSection({ lang, t }: HeroSectionProps) {
               transition={{ duration: 0.8, delay: 0.2 }}
               className={`${type.display} mb-4`}
             >
-              {lang === "ja" ? (
-                <>
-                  <span className="inline-block max-w-full">岡山サイケデリック</span>
-                  <span className="inline-block max-w-full">精神医療研究会</span>
-                </>
-              ) : (
-                t.hero.title
-              )}
+              {t.hero.titleLines.map((line) => (
+                <span key={line} className="inline-block max-w-full">
+                  {line}
+                </span>
+              ))}
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className={`${type.heroEyebrow} mb-12`}
+              className={`${type.heroEyebrow} mb-12 lg:mb-0`}
             >
               {t.hero.subtitle}
             </motion.p>
+          </div>
 
-            <div className="relative -mx-6 mb-10 h-52 sm:h-64 lg:hidden">
-              <HeroVisual />
-            </div>
+          <div className="relative -mx-6 mb-10 h-56 sm:h-72 md:h-96 lg:hidden">
+            <HeroVisual layout="stacked" />
+          </div>
 
+          <div className="max-w-xl text-center lg:pointer-events-auto lg:max-w-[50%] lg:text-left">
             <FadeInSection trigger="mount" delay={0.65} className="text-left">
               <p className={type.proseLead}>
                 <ProseText lang={lang}>{t.hero.intro1}</ProseText>

@@ -6,17 +6,18 @@ export const moleculeModels = [
   "/models/Psilocybine-bas-color-print.glb",
 ] as const;
 
-/** ~10s per model: hold then crossfade to next. */
+/** Per model: hold → fade out → fade in (no overlap). */
 export const moleculeCycle = {
   holdMs: 8200,
-  fadeMs: 2400,
+  fadeOutMs: 900,
+  fadeInMs: 900,
 } as const;
 
 export const moleculeMotion = {
   /** Applied after bbox normalization */
-  scale: 0.42,
+  scale: 0.5,
   /** Target max dimension (world units) before scale multiplier */
-  fitTargetSize: 4.2,
+  fitTargetSize: 4.4,
   /** Scene-space nudge after bbox centering — keep at 0 unless fine-tuning */
   sceneOffset: [0, 0, 0] as const,
 } as const;

@@ -4,19 +4,28 @@ import { useCallback, useState } from "react";
 import Image from "next/image";
 import { Canvas } from "@react-three/fiber";
 import { moleculeCamera } from "@/lib/molecule-config";
-import { visualPanelEdgeFade, visualPanelMask } from "@/lib/visual-panel-fade";
+import {
+  visualPanelEdgeFade,
+  visualPanelEdgeFadeStacked,
+  visualPanelMask,
+  visualPanelMaskStacked,
+} from "@/lib/visual-panel-fade";
 import { Hero3DErrorBoundary } from "./Hero3DErrorBoundary";
 import { HeroMoleculeScene } from "./HeroMoleculeScene";
 
 interface HeroMoleculeViewerProps {
   priority?: boolean;
   sizes?: string;
+  layout?: "split" | "stacked";
 }
 
 export function HeroMoleculeViewer({
   priority = false,
   sizes = "(min-width: 1024px) 50vw, 100vw",
+  layout = "split",
 }: HeroMoleculeViewerProps) {
+  const mask = layout === "stacked" ? visualPanelMaskStacked : visualPanelMask;
+  const edgeFade = layout === "stacked" ? visualPanelEdgeFadeStacked : visualPanelEdgeFade;
   const [sceneReady, setSceneReady] = useState(false);
   const handleSceneReady = useCallback(() => setSceneReady(true), []);
 
@@ -26,8 +35,8 @@ export function HeroMoleculeViewer({
         <div
           className="pointer-events-none absolute inset-0"
           style={{
-            WebkitMaskImage: visualPanelMask,
-            maskImage: visualPanelMask,
+            WebkitMaskImage: mask,
+            maskImage: mask,
             WebkitMaskComposite: "source-in",
             maskComposite: "intersect",
           }}
@@ -38,7 +47,7 @@ export function HeroMoleculeViewer({
             fill
             priority={priority}
             sizes={sizes}
-            className="object-cover object-right"
+            className={layout === "stacked" ? "object-cover object-center" : "object-cover object-right"}
           />
         </div>
 
@@ -64,7 +73,7 @@ export function HeroMoleculeViewer({
 
         <div
           className="pointer-events-none absolute inset-0 z-10"
-          style={{ background: visualPanelEdgeFade }}
+          style={{ background: edgeFade }}
         />
       </div>
     </Hero3DErrorBoundary>

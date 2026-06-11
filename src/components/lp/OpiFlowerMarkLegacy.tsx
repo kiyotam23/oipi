@@ -6,8 +6,8 @@ import { cn } from "@/lib/cn";
 const GREEN = "#2D5A43";
 const GOLD = "#E9B330";
 
-/** 8-fold flower mark — green leaves, white petals, golden center. */
-export function OpiFlowerMark({ className, ...props }: SVGProps<SVGSVGElement>) {
+/** Legacy 8-fold flower mark — preserved for future use. */
+export function OpiFlowerMarkLegacy({ className, ...props }: SVGProps<SVGSVGElement>) {
   return (
     <svg
       viewBox="0 0 512 512"

@@ -45,12 +45,7 @@ function smoothstep(t: number) {
   return t * t * (3 - 2 * t);
 }
 
-function crossfadeWeights(t: number) {
-  const angle = smoothstep(t) * (Math.PI / 2);
-  return { out: Math.cos(angle), inn: Math.sin(angle) };
-}
-
-/** Opacity only for model-to-model crossfade — fully opaque at 1, hidden at 0. */
+/** Opacity only for model transitions — fully opaque at 1, hidden at 0. */
 function setGroupOpacity(object: THREE.Object3D, opacity: number, renderOrder: number) {
   const isFullyVisible = opacity >= 0.999;
   const isHidden = opacity <= 0.001;
@@ -230,7 +225,7 @@ function CyclingMolecules({
   ]);
 
   const cycleRef = useRef({
-    phase: "hold" as "hold" | "fade",
+    phase: "hold" as "hold" | "fadeOut" | "fadeIn",
     phaseStart: 0,
   });
 
@@ -271,24 +266,53 @@ function CyclingMolecules({
       }
 
       if (elapsed >= moleculeCycle.holdMs) {
-        cycle.phase = "fade";
+        cycle.phase = "fadeOut";
         cycle.phaseStart = performance.now();
         setDualSlotActive(true);
       }
       return;
     }
 
-    const t = Math.min(1, elapsed / moleculeCycle.fadeMs);
-    const { out, inn } = crossfadeWeights(t);
+    if (cycle.phase === "fadeOut") {
+      const t = smoothstep(Math.min(1, elapsed / moleculeCycle.fadeOutMs));
+      const outgoingOpacity = 1 - t;
+
+      if (active === 0) {
+        opacityARef.current = outgoingOpacity;
+        opacityBRef.current = 0;
+        renderOrderARef.current = 1;
+        renderOrderBRef.current = 0;
+      } else {
+        opacityARef.current = 0;
+        opacityBRef.current = outgoingOpacity;
+        renderOrderARef.current = 0;
+        renderOrderBRef.current = 1;
+      }
+
+      if (t < 1) return;
+
+      if (active === 0) {
+        opacityARef.current = 0;
+      } else {
+        opacityBRef.current = 0;
+      }
+
+      cycle.phase = "fadeIn";
+      cycle.phaseStart = performance.now();
+      return;
+    }
+
+    const t = smoothstep(Math.min(1, elapsed / moleculeCycle.fadeInMs));
+    const incomingOpacity = t;
 
     if (active === 0) {
-      opacityARef.current = out;
-      opacityBRef.current = inn;
+      opacityARef.current = 0;
+      opacityBRef.current = incomingOpacity;
       renderOrderARef.current = 0;
       renderOrderBRef.current = 1;
     } else {
-      opacityARef.current = inn;
-      opacityBRef.current = out;
+      opacityARef.current = incomingOpacity;
+      opacityBRef.current = 0;
       renderOrderARef.current = 1;
       renderOrderBRef.current = 0;
     }

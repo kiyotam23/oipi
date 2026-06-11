@@ -12,11 +12,16 @@ const HeroMoleculeViewer = dynamic(
   },
 );
 
-export function HeroVisual() {
+interface HeroVisualProps {
+  layout?: "split" | "stacked";
+}
+
+export function HeroVisual({ layout = "split" }: HeroVisualProps) {
   return (
     <HeroMoleculeViewer
       priority
       sizes="(min-width: 1024px) 50vw, 100vw"
+      layout={layout}
     />
   );
 }

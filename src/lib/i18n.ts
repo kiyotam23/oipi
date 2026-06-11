@@ -17,6 +17,7 @@ export const translations = {
     hero: {
       badge: "発足声明",
       title: "岡山サイケデリック精神医療研究会",
+      titleLines: ["岡山サイケデリック", "精神医療研究会"],
       subtitle: "発足声明",
       intro1:
         "私たちは2026年6月8日、「岡山サイケデリック精神医療研究会」を発足いたします。",
@@ -181,8 +182,8 @@ export const translations = {
   en: {
     nav: {
       about: "About",
-      process: "Core Process",
-      framework: "Framework",
+      process: "Process",
+      framework: "Levels",
       activities: "Activities",
       founder: "Founder",
       contact: "Contact",
@@ -194,44 +195,45 @@ export const translations = {
     hero: {
       badge: "Founding Statement",
       title: "Okayama Psychedelic Psychiatric Institute",
+      titleLines: ["Okayama Psychedelic", "Psychiatric Institute"],
       subtitle: "Founding Statement",
       intro1:
-        "We are pleased to announce the establishment of the Okayama Psychedelic Psychiatric Institute.",
+        "On June 8, 2026, we will establish the Okayama Psychedelic Psychiatric Institute.",
       context1:
-        "In recent years, scientific research into psychedelic-assisted therapies has accelerated worldwide. Substances such as psilocybin, MDMA, and ketamine have demonstrated promising results in the treatment of depression, PTSD, addiction, end-of-life anxiety, and other mental health conditions.",
+        "In recent years, psychedelic medicine research using psilocybin, MDMA, ketamine, and related substances has advanced rapidly worldwide.",
       context2:
-        "At the same time, emerging evidence suggests that the therapeutic potential of these interventions extends beyond pharmacology alone. Their effects appear to involve profound changes in perception, meaning-making, self-understanding, and personal transformation.",
+        "While efficacy has been reported for depression, PTSD, addiction, end-of-life anxiety, and other conditions, it is becoming clear that therapeutic effects cannot be explained by pharmacological action alone—they are deeply connected to transformations in human consciousness, meaning-making, and worldview.",
       context3:
         "The Institute views psychedelic medicine not merely as pharmacological intervention, but as a comprehensive psychotherapeutic process that supports human recovery and growth, and was established to deepen understanding of mind and consciousness and explore new possibilities for mental health through an interdisciplinary approach integrating psychiatry, psychology, neuroscience, psychoanalysis, anthropology, religious studies, philosophy, and consciousness research.",
     },
     coreProcess: {
       sectionLabel: "Core Process",
       title: "Three-Stage Model",
-      lead: "At the center of our approach is the internationally recognized model of:",
+      lead: "At the center of our approach is the internationally recognized foundational model of psychedelic psychotherapy.",
       leadEnd: "",
       description:
-        "We believe that safe preparation, meaningful experience, and thoughtful integration form the essential foundation of effective psychedelic psychotherapy.",
+        "We believe that welcoming experience on a foundation of safe preparation, and integrating that experience into the context of one's life, is the essence of psychedelic psychotherapy.",
       steps: [
         {
           key: "preparation",
           title: "Preparation",
           subtitle: "Preparation",
           description:
-            "Establishing the psychological and medical foundation for a safe and meaningful experience.",
+            "The stage of establishing the psychological and medical foundation for welcoming experience under safe preparation.",
         },
         {
           key: "experience",
           title: "Experience",
           subtitle: "Experience",
           description:
-            "Engaging in meaningful altered states of consciousness under professional support and guidance.",
+            "The stage of welcoming meaningful experience in altered states of consciousness under professional support.",
         },
         {
           key: "integration",
           title: "Integration",
           subtitle: "Integration",
           description:
-            "Integrating the experience into one's life context and connecting it to lasting transformation.",
+            "The stage of integrating that experience into the context of one's life and connecting it to lasting transformation.",
         },
       ],
     },
@@ -239,7 +241,7 @@ export const translations = {
       sectionLabel: "Framework",
       title: "Three Levels",
       intro:
-        "Our work is guided by a three-level framework for understanding human transformation.",
+        "The Institute seeks to understand the process of human recovery and growth through three levels.",
       levels: [
         {
           key: "healing",
@@ -247,7 +249,7 @@ export const translations = {
           title: "Healing",
           subtitle: "Healing",
           description:
-            "This includes the reduction of psychological suffering, recovery from trauma, restoration of emotional regulation, and treatment of mental health disorders. Within this dimension, psychedelic-assisted therapies are understood as tools for relieving suffering and restoring psychological well-being.",
+            "This is the domain of psychiatric medicine: reducing mental illness and psychological distress, recovering from trauma, and restoring emotional regulation.",
         },
         {
           key: "growth",
@@ -255,26 +257,26 @@ export const translations = {
           title: "Growth",
           subtitle: "Growth",
           description:
-            "Beyond symptom reduction lies the opportunity for greater self-awareness, improved relationships, increased creativity, deeper purpose, and personal development. This dimension reflects the human potential for psychological maturation and self-actualization.",
+            "This is the domain of human maturation and self-actualization: deepening self-understanding, improving relationships, fostering creativity, and rediscovering meaning and purpose in life.",
         },
         {
           key: "consciousness",
           number: "03",
-          title: "Consciousness",
-          subtitle: "Consciousness",
+          title: "Awareness and Consciousness Research",
+          subtitle: "Consciousness Inquiry",
           description:
-            "At this level, we explore fundamental questions concerning the nature of self, mind, awareness, and human existence. Through both scientific investigation and humanistic inquiry, we seek to better understand altered states of consciousness, mystical experiences, transformative psychological processes, and the broader dimensions of human experience.",
+            "This is the domain of fundamental inquiry into what the self is, what consciousness is, and what human spirituality is—exploring phenomena of consciousness, including altered states and mystical experience, through both scientific and humanistic lenses.",
         },
       ],
-      tradition:
-        "The Society does not promote any particular religious or ideological position.",
+      tradition: "We do not adopt any particular religious position.",
       traditionDetail:
-        "However, we recognize that throughout history, cultures around the world have developed profound traditions of healing, contemplation, spirituality, and consciousness exploration. We believe these traditions deserve careful study and respectful dialogue alongside modern scientific research.",
+        "However, we aim to engage religious experience, contemplative practice, mystical thought, and traditional healing cultures—knowledge accumulated over human history—in dialogue with modern science, with respect for their insights.",
     },
     activities: {
       sectionLabel: "Activity Pillars",
-      title: "Our Activities",
-      intro: "Our activities include:",
+      title: "Activity Pillars",
+      intro:
+        "The Institute pursues multidimensional activities across three domains—academic research, professional development, and public dialogue—to establish safe and ethical psychedelic psychiatric medicine.",
       introEnd: "",
       items: [
         {
@@ -314,30 +316,30 @@ export const translations = {
         },
       ],
       compliance:
-        "The Society is firmly committed to legal compliance, scientific integrity, patient safety, and ethical responsibility.",
+        "We conduct research and practice in compliance with applicable laws, prioritizing safety and ethics.",
     },
     firstStep: {
       sectionLabel: "Our First Step",
       title: "First Step",
       description:
-        "As a practical first step, we will focus on ketamine-assisted treatment, which is currently available within Japan's legal medical framework and has attracted increasing international attention as a promising intervention in mental health care.",
+        "As the Institute's first step, we will begin with ketamine treatment—which can currently be provided legally in Japan and is advancing worldwide in psychiatric applications—accumulating clinical experience and research findings.",
       ctaLabel: "Details coming soon",
     },
     mission: {
       sectionLabel: "Our Mission",
-      title: "Our Vision",
-      goal1: "Our goal is not simply to introduce new treatments.",
+      title: "The Future We Aim For",
+      goal1: "Our goal is not simply to spread new treatments.",
       goal2:
-        "Our goal is to support recovery from suffering, foster human growth, and deepen our understanding of consciousness itself.",
+        "It is to support recovery from suffering, foster human growth, and deepen our understanding of consciousness itself.",
       goal3:
-        "By bringing together psychiatry, psychotherapy, neuroscience, philosophy, and the humanities, we hope to create a new platform for dialogue, research, education, and innovation in mental health.",
+        "It is to create from Okayama a new platform of knowledge that connects psychiatric medicine and psychotherapy, the humanities and natural sciences, treatment and growth, individual recovery and social well-being.",
       closing1: "From Okayama to Japan.",
       closing2:
-        "We aspire to contribute to a future in which mental health care is not only about the treatment of illness, but also about the cultivation of human flourishing, meaning, and consciousness.",
+        "We hope to cultivate, together with many colleagues, a deeper and more human future for mental health.",
     },
     founder: {
       sectionLabel: "Founder",
-      title: "Founding Director",
+      title: "Founder",
       name: "Norihide Ensako, M.D.",
       nameEn: "Norihide Ensako, M.D.",
       role: "Psychiatrist",
@@ -349,7 +351,7 @@ export const translations = {
       orgName: "Okayama Psychedelic Psychiatric Institute",
       orgNameEn: "岡山サイケデリック精神医療研究会",
       compliance:
-        "The Society is firmly committed to legal compliance, scientific integrity, patient safety, and ethical responsibility.",
+        "We conduct research and practice in compliance with applicable laws, prioritizing safety and ethics.",
       copyright: "© 2026 Okayama Psychedelic Psychiatric Institute. All rights reserved.",
     },
   },

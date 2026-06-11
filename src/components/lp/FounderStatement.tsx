@@ -1,6 +1,5 @@
 "use client";
 
-import { User } from "lucide-react";
 import type { TranslationContent } from "@/lib/i18n";
 import type { Language } from "@/types/i18n";
 import { color } from "@/lib/colors";
@@ -27,16 +26,11 @@ export function FounderStatement({ lang, t }: FounderStatementProps) {
             {t.founder.title}
           </SectionTitle>
 
-          <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-start">
-            <div className={`flex h-20 w-20 shrink-0 items-center justify-center rounded-full ${color.bg.sageLight}`}>
-              <User className={`h-8 w-8 ${color.text.accent}`} strokeWidth={1.5} />
-            </div>
-            <div className="min-w-0 text-center sm:text-left">
-              <p className={type.cardHeading}>{t.founder.name}</p>
-              <p className={`mt-1 ${type.meta}`}>{t.founder.nameEn}</p>
-              <p className={`mt-3 ${type.meta} ${color.text.accent}`}>{t.founder.role}</p>
-              <p className={`mt-1 ${type.metaSubtle}`}>{t.founder.affiliation}</p>
-            </div>
+          <div className="text-center sm:text-left">
+            <p className={type.cardHeading}>{t.founder.name}</p>
+            <p className={`mt-1 ${type.meta}`}>{t.founder.nameEn}</p>
+            <p className={`mt-3 ${type.meta} ${color.text.accent}`}>{t.founder.role}</p>
+            <p className={`mt-1 ${type.metaSubtle}`}>{t.founder.affiliation}</p>
           </div>
 
           <div className="mt-10 border-t border-slate-100 pt-8 text-center sm:text-left">
