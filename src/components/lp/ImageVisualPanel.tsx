@@ -1,18 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { visualPanelEdgeFade, visualPanelMask } from "@/lib/visual-panel-fade";
 import { AreaParticlesOverlay } from "./AreaParticlesOverlay";
-
-const imageMask = [
-  "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.35) 12%, black 28%, black 100%)",
-  "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)",
-].join(", ");
-
-const whiteEdgeFade = [
-  "linear-gradient(to right, #FFFFFF 0%, rgba(255,255,255,0.92) 5%, rgba(255,255,255,0.4) 16%, transparent 34%)",
-  "linear-gradient(to top, #FFFFFF 0%, rgba(255,255,255,0.55) 6%, transparent 14%)",
-  "linear-gradient(to bottom, #FFFFFF 0%, rgba(255,255,255,0.45) 6%, transparent 14%)",
-].join(", ");
 
 interface ImageVisualPanelProps {
   src: string;
@@ -33,8 +23,8 @@ export function ImageVisualPanel({
       <div
         className="absolute inset-0"
         style={{
-          WebkitMaskImage: imageMask,
-          maskImage: imageMask,
+          WebkitMaskImage: visualPanelMask,
+          maskImage: visualPanelMask,
           WebkitMaskComposite: "source-in",
           maskComposite: "intersect",
         }}
@@ -51,7 +41,7 @@ export function ImageVisualPanel({
 
       <div
         className="pointer-events-none absolute inset-0"
-        style={{ background: whiteEdgeFade }}
+        style={{ background: visualPanelEdgeFade }}
       />
 
       <div className="pointer-events-none absolute inset-0">

@@ -5,7 +5,7 @@ import type { Language } from "@/types/i18n";
 import { cn } from "@/lib/cn";
 import { color } from "@/lib/colors";
 import { protectJaText } from "@/lib/protect-phrases";
-import { HikoneTachibanaMark } from "./HikoneTachibanaMark";
+import { OpiFlowerMark } from "./OpiFlowerMark";
 
 interface TachibanaLogoProps {
   lang?: Language;
@@ -34,7 +34,7 @@ export function TachibanaLogo({
           whileHover={{ scale: 1.06 }}
           transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
         >
-          <HikoneTachibanaMark />
+          <OpiFlowerMark />
         </motion.div>
       </div>
 

@@ -57,8 +57,26 @@ export function protectJaText(text: string): ReactNode {
 
       const parts = node.split(phrase);
       parts.forEach((part, partIndex) => {
-        if (part) next.push(part);
         if (partIndex < parts.length - 1) {
+          const after = parts[partIndex + 1] ?? "";
+          const quoted =
+            part.endsWith("「") && after.startsWith("」");
+
+          if (quoted) {
+            if (part.slice(0, -1)) next.push(part.slice(0, -1));
+            next.push(
+              <span
+                key={`${phraseIndex}-${nodeIndex}-${partIndex}-q`}
+                className="inline-block max-w-full"
+              >
+                {`「${phrase}」`}
+              </span>,
+            );
+            parts[partIndex + 1] = after.slice(1);
+            return;
+          }
+
+          if (part) next.push(part);
           next.push(
             <span
               key={`${phraseIndex}-${nodeIndex}-${partIndex}`}
@@ -67,7 +85,10 @@ export function protectJaText(text: string): ReactNode {
               {phrase}
             </span>,
           );
+          return;
         }
+
+        if (part) next.push(part);
       });
     });
 

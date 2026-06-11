@@ -28,7 +28,6 @@ export const translations = {
         "うつ病、PTSD、依存症、終末期不安などに対する有効性が報告される一方で、その治療効果は薬理作用のみでは説明できず、人間の意識、意味づけ、人生観の変容と深く関わることが明らかになりつつあります。",
       context3:
         "私たちはサイケデリック医療を単なる薬物療法としてではなく、人間の回復と成長を支援する包括的な心理療法的プロセスとして捉えています。",
-      foundingDate: "2026年6月8日",
     },
     coreProcess: {
       sectionLabel: "Core Process",
@@ -208,7 +207,6 @@ export const translations = {
         "At the same time, emerging evidence suggests that the therapeutic potential of these interventions extends beyond pharmacology alone. Their effects appear to involve profound changes in perception, meaning-making, self-understanding, and personal transformation.",
       context3:
         "For this reason, we view psychedelic medicine not merely as a pharmacological intervention, but as a comprehensive psychotherapeutic process that supports healing, growth, and the exploration of consciousness.",
-      foundingDate: "June 8, 2026",
     },
     coreProcess: {
       sectionLabel: "Core Process",

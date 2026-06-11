@@ -2,12 +2,15 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Particles from "@tsparticles/react";
+import { particlesEnabled } from "@/lib/features";
 import { particlesConfig } from "@/lib/particles-config";
 
 export function ParticlesBackground() {
-  const [enabled, setEnabled] = useState(true);
+  const [enabled, setEnabled] = useState(particlesEnabled);
 
   useEffect(() => {
+    if (!particlesEnabled) return;
+
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     setEnabled(!reducedMotion.matches);
 

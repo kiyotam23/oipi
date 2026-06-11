@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getTranslation } from "@/lib/i18n";
+import { particlesEnabled } from "@/lib/features";
 import type { Language } from "@/types/i18n";
 import { BackgroundParallax } from "./BackgroundParallax";
 import { ParticlesBackground } from "./ParticlesBackground";
@@ -28,10 +29,12 @@ export function LandingPage() {
   return (
     <ParticlesProviderRoot>
       <div lang={lang} className="relative min-h-screen bg-white text-text">
-        <BackgroundParallax>
-          <ParticlesBackground />
-          <ReadabilityOverlay />
-        </BackgroundParallax>
+        {particlesEnabled && (
+          <BackgroundParallax>
+            <ParticlesBackground />
+            <ReadabilityOverlay />
+          </BackgroundParallax>
+        )}
         <div className="relative z-10 min-w-0">
           <Header lang={lang} t={t} onLangChange={setLang} />
           <main className="min-w-0" key={lang}>
