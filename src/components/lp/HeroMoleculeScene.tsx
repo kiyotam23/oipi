@@ -11,6 +11,7 @@ import {
 } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Float, OrbitControls, useGLTF } from "@react-three/drei";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import {
   moleculeCycle,
   moleculeModels,
@@ -142,15 +143,8 @@ function MoleculeOrbitControls({
 }) {
   const controlsRef = useRef<OrbitControlsImpl>(null);
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const [autoRotate, setAutoRotate] = useState(false);
-
-  useEffect(() => {
-    if (!active) {
-      setAutoRotate(false);
-      return;
-    }
-    setAutoRotate(!reducedMotion);
-  }, [active, reducedMotion]);
+  const [dragPaused, setDragPaused] = useState(false);
+  const autoRotate = active && !reducedMotion && !dragPaused;
 
   useEffect(
     () => () => {
@@ -160,7 +154,7 @@ function MoleculeOrbitControls({
   );
 
   const onDragStart = () => {
-    setAutoRotate(false);
+    setDragPaused(true);
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
   };
 
@@ -168,7 +162,7 @@ function MoleculeOrbitControls({
     if (reducedMotion) return;
     if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
     idleTimerRef.current = setTimeout(() => {
-      setAutoRotate(true);
+      setDragPaused(false);
     }, moleculeOrbit.idleResumeMs);
   };
 
@@ -370,16 +364,7 @@ interface HeroMoleculeSceneProps {
 }
 
 export function HeroMoleculeScene({ onReady }: HeroMoleculeSceneProps) {
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(media.matches);
-
-    const onChange = () => setReducedMotion(media.matches);
-    media.addEventListener("change", onChange);
-    return () => media.removeEventListener("change", onChange);
-  }, []);
+  const reducedMotion = usePrefersReducedMotion();
 
   return (
     <>

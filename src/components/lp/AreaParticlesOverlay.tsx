@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import Particles from "@tsparticles/react";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { particlesEnabled } from "@/lib/features";
 import { heroOverlayParticlesConfig } from "@/lib/particles-config";
 
@@ -10,19 +11,9 @@ interface AreaParticlesOverlayProps {
 }
 
 export function AreaParticlesOverlay({ id }: AreaParticlesOverlayProps) {
-  const [enabled, setEnabled] = useState(particlesEnabled);
+  const reducedMotion = usePrefersReducedMotion();
+  const enabled = particlesEnabled && !reducedMotion;
   const options = useMemo(() => heroOverlayParticlesConfig, []);
-
-  useEffect(() => {
-    if (!particlesEnabled) return;
-
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setEnabled(!reducedMotion.matches);
-
-    const onChange = () => setEnabled(!reducedMotion.matches);
-    reducedMotion.addEventListener("change", onChange);
-    return () => reducedMotion.removeEventListener("change", onChange);
-  }, []);
 
   if (!enabled) return null;
 
