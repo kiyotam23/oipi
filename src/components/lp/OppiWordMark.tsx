@@ -16,9 +16,9 @@ export function OppiWordMark({ className }: OppiWordMarkProps) {
         className,
       )}
       style={{ color: LOGO_COLOR }}
-      aria-label="OPPI"
+      aria-label="OIPI"
     >
-      OPPI
+      OIPI
     </span>
   );
 }
