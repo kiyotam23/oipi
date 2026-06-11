@@ -31,8 +31,11 @@ export function SectionHeader({
   variant = "standard",
   className,
 }: SectionHeaderProps) {
-  const introClass =
-    introWidth === "3xl" ? type.sectionIntroWide : type.sectionIntro;
+  const introClass = cn(
+    type.sectionIntro,
+    "mx-auto",
+    layout.introMax[introWidth === "3xl" ? "wide" : "default"],
+  );
 
   return (
     <FadeInSection

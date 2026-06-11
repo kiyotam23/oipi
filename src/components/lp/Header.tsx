@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import type { TranslationContent } from "@/lib/i18n";
 import type { Language } from "@/types/i18n";
+import { type } from "@/lib/styles";
 import { LanguageToggle } from "./LanguageToggle";
 import { TachibanaLogo } from "./TachibanaLogo";
 import { ProseText } from "./ProseText";
@@ -52,7 +53,7 @@ export function Header({ lang, t, onLangChange }: HeaderProps) {
             <a
               key={item.key}
               href={item.href}
-              className="text-sm font-medium tracking-wide text-text/75 transition-colors hover:text-text"
+              className={type.navLink}
             >
               <ProseText lang={lang}>{t.nav[item.key]}</ProseText>
             </a>

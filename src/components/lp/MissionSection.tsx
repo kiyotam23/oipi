@@ -24,7 +24,7 @@ export function MissionSection({ lang, t }: MissionSectionProps) {
         variant="plain"
       />
 
-      <FadeInSection delay={0.1} className="space-y-8">
+      <FadeInSection delay={0.1} className="space-y-6">
         <p className={type.proseLead}>
           <ProseText lang={lang}>{t.mission.goal1}</ProseText>
         </p>
@@ -34,10 +34,7 @@ export function MissionSection({ lang, t }: MissionSectionProps) {
         <p className={type.proseBody}>
           <ProseText lang={lang}>{t.mission.goal3}</ProseText>
         </p>
-      </FadeInSection>
-
-      <FadeInSection delay={0.2} className="mt-16 space-y-4">
-        <p className={type.closing}>
+        <p className={type.proseBody}>
           <ProseText lang={lang}>{t.mission.closing1}</ProseText>
         </p>
         <p className={type.proseBody}>

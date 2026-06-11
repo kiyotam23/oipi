@@ -20,14 +20,12 @@ export const translations = {
       subtitle: "発足声明",
       intro1:
         "私たちは2026年6月8日、「岡山サイケデリック精神医療研究会」を発足いたします。",
-      intro2:
-        "本研究会は、精神医学、心理学、神経科学、精神分析学、人類学、宗教学、哲学、意識研究などの学際的視点から、人間の心と意識の理解を深め、新しいメンタルヘルスの可能性を探究することを目的として設立されました。",
       context1:
         "近年、世界ではシロシビン、MDMA、ケタミンなどを用いたサイケデリック医療研究が急速に進展しています。",
       context2:
         "うつ病、PTSD、依存症、終末期不安などに対する有効性が報告される一方で、その治療効果は薬理作用のみでは説明できず、人間の意識、意味づけ、人生観の変容と深く関わることが明らかになりつつあります。",
       context3:
-        "私たちはサイケデリック医療を単なる薬物療法としてではなく、人間の回復と成長を支援する包括的な心理療法的プロセスとして捉えています。",
+        "本研究会は、サイケデリック医療を単なる薬物療法としてではなく、人間の回復と成長を支援する包括的な心理療法的プロセスとして捉え、精神医学、心理学、神経科学、精神分析学、人類学、宗教学、哲学、意識研究などの学際的視点から、人間の心と意識の理解を深め、新しいメンタルヘルスの可能性を探究することを目的として設立されました。",
     },
     coreProcess: {
       sectionLabel: "Core Process",
@@ -199,14 +197,12 @@ export const translations = {
       subtitle: "Founding Statement",
       intro1:
         "We are pleased to announce the establishment of the Okayama Psychedelic Psychiatric Institute.",
-      intro2:
-        "Our mission is to advance the understanding of human consciousness, mental health, and psychological healing through an interdisciplinary approach that integrates psychiatry, psychology, neuroscience, psychoanalysis, anthropology, religious studies, philosophy, and consciousness research.",
       context1:
         "In recent years, scientific research into psychedelic-assisted therapies has accelerated worldwide. Substances such as psilocybin, MDMA, and ketamine have demonstrated promising results in the treatment of depression, PTSD, addiction, end-of-life anxiety, and other mental health conditions.",
       context2:
         "At the same time, emerging evidence suggests that the therapeutic potential of these interventions extends beyond pharmacology alone. Their effects appear to involve profound changes in perception, meaning-making, self-understanding, and personal transformation.",
       context3:
-        "For this reason, we view psychedelic medicine not merely as a pharmacological intervention, but as a comprehensive psychotherapeutic process that supports healing, growth, and the exploration of consciousness.",
+        "The Institute views psychedelic medicine not merely as pharmacological intervention, but as a comprehensive psychotherapeutic process that supports human recovery and growth, and was established to deepen understanding of mind and consciousness and explore new possibilities for mental health through an interdisciplinary approach integrating psychiatry, psychology, neuroscience, psychoanalysis, anthropology, religious studies, philosophy, and consciousness research.",
     },
     coreProcess: {
       sectionLabel: "Core Process",

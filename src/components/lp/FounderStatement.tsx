@@ -32,16 +32,16 @@ export function FounderStatement({ lang, t }: FounderStatementProps) {
               <User className={`h-8 w-8 ${color.text.accent}`} strokeWidth={1.5} />
             </div>
             <div className="min-w-0 text-center sm:text-left">
-              <p className={type.cardTitle}>{t.founder.name}</p>
-              <p className="mt-1 text-sm text-text/70">{t.founder.nameEn}</p>
-              <p className={`mt-3 text-sm ${color.text.accent}`}>{t.founder.role}</p>
-              <p className="mt-1 text-sm text-text/50">{t.founder.affiliation}</p>
+              <p className={type.cardHeading}>{t.founder.name}</p>
+              <p className={`mt-1 ${type.meta}`}>{t.founder.nameEn}</p>
+              <p className={`mt-3 ${type.meta} ${color.text.accent}`}>{t.founder.role}</p>
+              <p className={`mt-1 ${type.metaSubtle}`}>{t.founder.affiliation}</p>
             </div>
           </div>
 
           <div className="mt-10 border-t border-slate-100 pt-8 text-center sm:text-left">
-            <p className="text-sm text-text/70">{t.founder.date}</p>
-            <p className="heading-balance mt-2 text-base font-medium text-text">
+            <p className={type.meta}>{t.founder.date}</p>
+            <p className={`mt-2 ${type.proseLead}`}>
               <ProseText lang={lang}>{t.founder.orgName}</ProseText>
             </p>
           </div>

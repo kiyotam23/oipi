@@ -15,8 +15,8 @@ interface HeroSectionProps {
 
 export function HeroSection({ lang, t }: HeroSectionProps) {
   return (
-    <section id="about" className="relative overflow-hidden">
-      <div className="relative pb-12 pt-20 lg:pb-16">
+    <section id="about" className="relative overflow-hidden pb-24 pt-20">
+      <div className="relative">
         <div
           className="pointer-events-auto absolute inset-y-0 right-0 z-20 hidden w-[clamp(420px,50vw,920px)] lg:block"
           aria-hidden
@@ -30,7 +30,7 @@ export function HeroSection({ lang, t }: HeroSectionProps) {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="heading-balance mb-4 text-3xl font-light leading-tight tracking-tight text-text sm:text-4xl md:text-5xl"
+              className={`${type.display} mb-4`}
             >
               {lang === "ja" ? (
                 <>
@@ -46,7 +46,7 @@ export function HeroSection({ lang, t }: HeroSectionProps) {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="mb-12 text-sm tracking-[0.2em] text-text/70 uppercase"
+              className={`${type.heroEyebrow} mb-12`}
             >
               {t.hero.subtitle}
             </motion.p>
@@ -55,30 +55,25 @@ export function HeroSection({ lang, t }: HeroSectionProps) {
               <HeroVisual />
             </div>
 
-            <FadeInSection trigger="mount" delay={0.65} className="space-y-6 text-left">
-              <p className={`${type.proseBodyEmphasis} sm:text-lg`}>
+            <FadeInSection trigger="mount" delay={0.65} className="text-left">
+              <p className={type.proseLead}>
                 <ProseText lang={lang}>{t.hero.intro1}</ProseText>
               </p>
-              <p className={`${type.proseBody} sm:text-lg`}>
-                <ProseText lang={lang}>{t.hero.intro2}</ProseText>
+            </FadeInSection>
+
+            <FadeInSection trigger="mount" delay={0.85} className="mt-12 space-y-6 text-left">
+              <p className={type.proseBody}>
+                <ProseText lang={lang}>{t.hero.context1}</ProseText>
+              </p>
+              <p className={type.proseBody}>
+                <ProseText lang={lang}>{t.hero.context2}</ProseText>
+              </p>
+              <p className={type.proseBody}>
+                <ProseText lang={lang}>{t.hero.context3}</ProseText>
               </p>
             </FadeInSection>
           </div>
         </div>
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-6xl min-w-0 px-6 pb-24">
-        <FadeInSection trigger="mount" delay={0.2} className="max-w-xl space-y-6 text-left lg:max-w-[50%]">
-          <p className={type.proseBody}>
-            <ProseText lang={lang}>{t.hero.context1}</ProseText>
-          </p>
-          <p className={type.proseBody}>
-            <ProseText lang={lang}>{t.hero.context2}</ProseText>
-          </p>
-          <p className={type.proseBodyEmphasis}>
-            <ProseText lang={lang}>{t.hero.context3}</ProseText>
-          </p>
-        </FadeInSection>
       </div>
     </section>
   );

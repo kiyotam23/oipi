@@ -56,7 +56,7 @@ export function FirstStep({ lang, t }: FirstStepProps) {
               type="button"
               disabled
               aria-disabled="true"
-              className={`inline-flex cursor-not-allowed items-center gap-2 rounded-full ${color.bg.goldLight} px-6 py-3 text-sm font-semibold tracking-wide ${color.text.label} opacity-90 ring-1 ring-label/25 transition-opacity`}
+              className={`inline-flex cursor-not-allowed items-center gap-2 rounded-full ${color.bg.goldLight} px-6 py-3 ${type.button} ${color.text.label} opacity-90 ring-1 ring-label/25 transition-opacity`}
             >
               {t.firstStep.ctaLabel}
               <ArrowRight className="h-4 w-4 shrink-0" strokeWidth={2} />

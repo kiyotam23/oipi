@@ -38,17 +38,15 @@ export function ThreeLevels({ lang, t }: ThreeLevelsProps) {
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="mb-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <span className="text-xs font-mono tracking-widest text-text/40">
+                    <span className={`font-mono ${type.caption} text-text/40`}>
                       {level.number}
                     </span>
-                    <h3 className={type.cardTitle}>
+                    <h3 className={type.cardHeading}>
                       <ProseText lang={lang} className="inline">
                         {level.subtitle}
                       </ProseText>
                     </h3>
-                    <span className="text-sm text-text/50">
-                      — {level.title}
-                    </span>
+                    <span className={type.metaSubtle}>— {level.title}</span>
                   </div>
                   <p className={type.proseBody}>
                     <ProseText lang={lang}>{level.description}</ProseText>
@@ -60,11 +58,11 @@ export function ThreeLevels({ lang, t }: ThreeLevelsProps) {
         })}
       </div>
 
-      <FadeInSection delay={0.3} className="mt-16 space-y-4 text-center">
-        <p className={type.proseBodyEmphasis}>
+      <FadeInSection delay={0.3} className="mt-16 space-y-6 text-center">
+        <p className={type.proseLead}>
           <ProseText lang={lang}>{t.threeLevels.tradition}</ProseText>
         </p>
-        <p className={type.sectionIntroWide}>
+        <p className={`${type.proseBody} mx-auto max-w-3xl`}>
           <ProseText lang={lang}>{t.threeLevels.traditionDetail}</ProseText>
         </p>
       </FadeInSection>

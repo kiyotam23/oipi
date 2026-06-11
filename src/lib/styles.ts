@@ -10,27 +10,38 @@ export const layout = {
     md: "mx-auto max-w-4xl min-w-0",
     lg: "mx-auto max-w-6xl min-w-0",
   },
+  introMax: {
+    default: "max-w-2xl",
+    wide: "max-w-3xl",
+  },
 } as const;
 
-/** Typography scale */
+/**
+ * Typography — semantic roles
+ * - Section chrome: title, intro
+ * - Prose: lead (emphasis) + body (main text)
+ * - Card: label, heading
+ * - UI: meta, caption, nav
+ */
 export const type = {
+  display: `heading-balance text-3xl font-light leading-tight tracking-tight text-text sm:text-4xl md:text-5xl`,
+  heroEyebrow: "text-sm tracking-[0.2em] text-text/70 uppercase",
   sectionTitle: `text-2xl font-light sm:text-3xl ${color.text.main}`,
   sectionTitleMb: {
     default: "mb-6",
     spacious: "mb-12",
     founder: "mb-10",
   },
-  sectionIntro: `lead-pretty mx-auto max-w-2xl text-base leading-relaxed ${color.text.muted}`,
-  sectionIntroWide: `lead-pretty mx-auto max-w-3xl text-base leading-relaxed ${color.text.muted}`,
-  proseBody: `lead-pretty text-base leading-relaxed ${color.text.muted}`,
-  proseBodyEmphasis: `lead-pretty text-base leading-relaxed ${color.text.main}`,
+  sectionIntro: `lead-pretty text-base leading-relaxed ${color.text.muted}`,
   proseLead: `lead-pretty text-lg leading-relaxed ${color.text.main}`,
-  proseSm: `lead-pretty text-sm leading-relaxed ${color.text.muted}`,
-  proseSmAccent: `lead-pretty text-sm font-medium leading-relaxed ${color.text.accent}`,
-  cardTitle: `heading-balance text-xl font-medium ${color.text.main}`,
-  cardTitleSm: `heading-balance mb-2 text-sm font-semibold tracking-tight ${color.text.main}`,
-  stepSubtitle: `mb-1 text-xs font-semibold tracking-widest uppercase ${color.text.accent}`,
-  closing: `heading-balance text-xl font-light tracking-wide ${color.text.muted}`,
+  proseBody: `lead-pretty text-base leading-relaxed ${color.text.muted}`,
+  cardLabel: `mb-1 text-xs font-semibold tracking-widest uppercase ${color.text.accent}`,
+  cardHeading: `heading-balance text-base font-medium ${color.text.main}`,
+  meta: "text-sm text-text/70",
+  metaSubtle: "text-sm text-text/50",
+  caption: "text-xs tracking-widest text-text/50",
+  navLink: "text-sm font-medium tracking-wide text-text/75 transition-colors hover:text-text",
+  button: "text-sm font-semibold tracking-wide",
 } as const;
 
 /** Card surfaces */
@@ -48,17 +59,9 @@ export const inlineSectionLabelClass =
 
 export const sectionLabelClass = `mb-3 ${inlineSectionLabelClass}`;
 
-/** Orange icon styling (shared with Three Levels) */
+/** Orange icon styling (Three Levels) */
 export const orangeIconClass = "text-label bg-gold-light border-label/20";
 
-/** Icon cushion — orange (h-12, Core Process / Activity Pillars) */
-export const iconCushionOrangeClass =
-  `mb-5 flex h-12 w-12 items-center justify-center rounded-full border ${orangeIconClass}`;
-
-/** Icon cushion — sage green (legacy) */
-export const iconCushionClass =
-  "mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-sage-light";
-
-/** Three Levels icon cushion (h-14) */
+/** Three Levels icon cushion */
 export const levelIconCushionClass =
   `flex h-14 w-14 shrink-0 items-center justify-center rounded-full border ${orangeIconClass}`;
