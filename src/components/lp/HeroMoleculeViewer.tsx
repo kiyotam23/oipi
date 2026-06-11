@@ -21,7 +21,7 @@ interface HeroMoleculeViewerProps {
 
 export function HeroMoleculeViewer({
   priority = false,
-  sizes = "(min-width: 1024px) 50vw, 100vw",
+  sizes = "(min-width: 1280px) 50vw, 100vw",
   layout = "split",
 }: HeroMoleculeViewerProps) {
   const mask = layout === "stacked" ? visualPanelMaskStacked : visualPanelMask;
