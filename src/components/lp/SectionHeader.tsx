@@ -2,7 +2,7 @@
 
 import type { Language } from "@/types/i18n";
 import { cn } from "@/lib/cn";
-import { layout, sectionLabelClass, type } from "@/lib/styles";
+import { layout, sectionLabelClass, textBgSage, type } from "@/lib/styles";
 import { FadeInSection } from "./FadeInSection";
 import { ProseText, SectionTitle } from "./ProseText";
 
@@ -18,6 +18,8 @@ interface SectionHeaderProps {
   titleSpacing?: TitleSpacing;
   /** standard: mb-16 header block / plain: no outer spacing */
   variant?: "standard" | "plain";
+  textBg?: boolean;
+  textBgClass?: string;
   className?: string;
 }
 
@@ -29,8 +31,11 @@ export function SectionHeader({
   introWidth = "2xl",
   titleSpacing = "default",
   variant = "standard",
+  textBg = false,
+  textBgClass: textBgClassProp,
   className,
 }: SectionHeaderProps) {
+  const textBgClass = textBg ? (textBgClassProp ?? textBgSage) : undefined;
   const introClass = cn(
     type.sectionIntro,
     "mx-auto",
@@ -41,16 +46,21 @@ export function SectionHeader({
     <FadeInSection
       className={cn(variant === "standard" && layout.sectionHeader, className)}
     >
-      <p className={sectionLabelClass}>{label}</p>
+      <p className={sectionLabelClass}>
+        {textBgClass ? <span className={textBgClass}>{label}</span> : label}
+      </p>
       <SectionTitle
         lang={lang}
         className={cn(type.sectionTitleMb[titleSpacing], type.sectionTitle)}
+        textBgClassName={textBgClass}
       >
         {title}
       </SectionTitle>
       {intro && (
         <p className={introClass}>
-          <ProseText lang={lang}>{intro}</ProseText>
+          <ProseText lang={lang} className={textBgClass}>
+            {intro}
+          </ProseText>
         </p>
       )}
     </FadeInSection>

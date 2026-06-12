@@ -11,7 +11,7 @@
   --color-gold-light: #fdf0d8;
   --color-gold-pale: #f9efcf;
   --color-label: #d98514;
-  --color-sage: #e8ecea75;
+  --color-sage: #e8ecea;
   --color-sage-light: #d8dedb;
   --color-sage-border: #cdd5d1;
 }
@@ -27,9 +27,9 @@
   --color-gold-light: var(--color-gold-light);
   --color-gold-pale: var(--color-gold-pale);
   --color-label: var(--color-label);
-  --color-sage: var(--color-sage);
-  --color-sage-light: var(--color-sage-light);
-  --color-sage-border: var(--color-sage-border);
+  --color-sage: #e8ecea;
+  --color-sage-light: #d8dedb;
+  --color-sage-border: #cdd5d1;
   --font-sans: var(--font-noto-sans-jp), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }

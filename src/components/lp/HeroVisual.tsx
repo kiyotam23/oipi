@@ -1,16 +1,8 @@
 "use client";
 
-import dynamic from "next/dynamic";
+import { ImageVisualPanel } from "./ImageVisualPanel";
 
-const HeroMoleculeViewer = dynamic(
-  () => import("./HeroMoleculeViewer").then((mod) => mod.HeroMoleculeViewer),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="relative h-full w-full min-h-[inherit] bg-transparent" aria-hidden />
-    ),
-  },
-);
+export const HERO_BG_SRC = "/hero-bg.png";
 
 interface HeroVisualProps {
   layout?: "split" | "stacked";
@@ -18,10 +10,11 @@ interface HeroVisualProps {
 
 export function HeroVisual({ layout = "split" }: HeroVisualProps) {
   return (
-    <HeroMoleculeViewer
-      priority
-      sizes="(min-width: 1280px) 50vw, 100vw"
+    <ImageVisualPanel
+      src={HERO_BG_SRC}
       layout={layout}
+      sizes={layout === "stacked" ? "100vw" : "min(920px, 50vw)"}
+      priority
     />
   );
 }

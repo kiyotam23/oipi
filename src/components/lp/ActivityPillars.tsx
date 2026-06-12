@@ -15,7 +15,7 @@ interface ActivityPillarsProps {
 
 export function ActivityPillars({ lang, t }: ActivityPillarsProps) {
   return (
-    <Section id="activities" tone="sage">
+    <Section id="activities" tone="sage" containerClassName="bg-sage">
       <SectionHeader
         lang={lang}
         label={t.activities.sectionLabel}

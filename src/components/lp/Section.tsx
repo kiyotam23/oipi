@@ -10,6 +10,7 @@ interface SectionProps {
   width?: ContainerWidth;
   center?: boolean;
   className?: string;
+  containerClassName?: string;
   children: ReactNode;
 }
 
@@ -19,14 +20,18 @@ export function Section({
   width = "lg",
   center = false,
   className,
+  containerClassName,
   children,
 }: SectionProps) {
   return (
     <section
       id={id}
+      data-sage-bg={tone === "sage" ? "" : undefined}
       className={cn(tone === "sage" ? layout.sectionSage : layout.section, className)}
     >
-      <div className={cn(layout.container[width], center && "text-center")}>
+      <div
+        className={cn(layout.container[width], center && "text-center", containerClassName)}
+      >
         {children}
       </div>
     </section>

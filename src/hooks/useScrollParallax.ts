@@ -1,7 +1,19 @@
 import { useEffect, useState } from "react";
 
-/** Subtle scroll-linked Y offset for background parallax. */
-export function useScrollParallax(speed = 0.06) {
+function scrollParallaxOffset(scrollY: number, speed: number, acceleration: number): number {
+  if (acceleration <= 0) return scrollY * speed;
+
+  const maxScroll = Math.max(
+    1,
+    document.documentElement.scrollHeight - window.innerHeight,
+  );
+  const s = scrollY;
+  // velocity grows with scroll depth: v(s) = speed * (1 + acceleration * s / maxScroll)
+  return speed * (s + (acceleration * s * s) / (2 * maxScroll));
+}
+
+/** Scroll-linked Y offset. acceleration > 0 eases into faster drift deeper on the page. */
+export function useScrollParallax(speed = 0.06, acceleration = 0) {
   const [offset, setOffset] = useState(0);
   const [enabled, setEnabled] = useState(true);
 
@@ -16,22 +28,24 @@ export function useScrollParallax(speed = 0.06) {
     }
 
     let raf = 0;
-    const onScroll = () => {
+    const sync = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        setOffset(window.scrollY * speed);
+        setOffset(scrollParallaxOffset(window.scrollY, speed, acceleration));
       });
     };
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    window.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync);
+    sync();
 
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("scroll", sync);
+      window.removeEventListener("resize", sync);
       reducedMotion.removeEventListener("change", syncEnabled);
     };
-  }, [speed]);
+  }, [speed, acceleration]);
 
   return enabled ? offset : 0;
 }

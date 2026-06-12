@@ -16,7 +16,7 @@ interface CoreProcessProps {
 
 export function CoreProcess({ lang, t }: CoreProcessProps) {
   return (
-    <Section id="process" tone="sage">
+    <Section id="process" tone="sage" containerClassName="bg-sage">
       <SectionHeader
         lang={lang}
         label={t.coreProcess.sectionLabel}

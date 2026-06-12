@@ -6,7 +6,6 @@ import type { Language } from "@/types/i18n";
 import { type } from "@/lib/styles";
 import { ProseText } from "./ProseText";
 import { FadeInSection } from "./FadeInSection";
-import { HeroVisual } from "./HeroVisual";
 
 interface HeroSectionProps {
   lang: Language;
@@ -16,15 +15,8 @@ interface HeroSectionProps {
 export function HeroSection({ lang, t }: HeroSectionProps) {
   return (
     <section id="about" className="relative overflow-hidden pb-24 pt-20">
-      <div
-        className="pointer-events-auto absolute inset-y-0 right-0 z-20 hidden w-[clamp(460px,50vw,920px)] xl:block"
-        aria-hidden
-      >
-        <HeroVisual />
-      </div>
-
       <div className="relative z-10 mx-auto max-w-6xl min-w-0 px-6 xl:pointer-events-none">
-        <div className="mx-auto max-w-xl text-center xl:mx-0 xl:max-w-[min(100%,540px)] xl:text-left">
+        <div className="mx-auto max-w-xl bg-white text-center xl:mx-0 xl:max-w-[min(100%,540px)] xl:text-left">
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
@@ -47,9 +39,7 @@ export function HeroSection({ lang, t }: HeroSectionProps) {
             {t.hero.subtitle}
           </motion.p>
 
-          <div className="relative -mx-6 mb-10 h-56 sm:h-64 md:h-72 xl:hidden">
-            <HeroVisual layout="stacked" />
-          </div>
+          <div className="relative -mx-6 mb-10 h-56 sm:h-64 md:h-72 xl:hidden" aria-hidden />
 
           <FadeInSection trigger="mount" delay={0.65} className="text-left">
             <p className={type.proseLead}>

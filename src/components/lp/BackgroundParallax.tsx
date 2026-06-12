@@ -7,9 +7,12 @@ interface BackgroundParallaxProps {
   children: ReactNode;
 }
 
-/** Wraps particle + overlay layers with gentle scroll parallax. */
+/** Molecules drift up; speed accelerates as the page scrolls deeper. */
+const MOLECULE_PARALLAX_SPEED = -1.2;
+const MOLECULE_PARALLAX_ACCELERATION = 3;
+
 export function BackgroundParallax({ children }: BackgroundParallaxProps) {
-  const y = useScrollParallax(0.06);
+  const y = useScrollParallax(MOLECULE_PARALLAX_SPEED, MOLECULE_PARALLAX_ACCELERATION);
 
   return (
     <div
@@ -17,7 +20,7 @@ export function BackgroundParallax({ children }: BackgroundParallaxProps) {
       aria-hidden
     >
       <div
-        className="absolute -top-[12vh] left-0 h-[124vh] w-full"
+        className="absolute left-0 top-0 h-[200vh] w-full"
         style={{
           transform: `translate3d(0, ${y}px, 0)`,
           willChange: "transform",

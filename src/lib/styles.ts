@@ -3,7 +3,7 @@ import { color } from "./colors";
 /** Page section spacing and containers */
 export const layout = {
   section: "relative px-6 py-24",
-  sectionSage: `relative px-6 py-24 ${color.bg.sage}`,
+  sectionSage: "relative px-6 py-24",
   sectionHeader: "mb-16 text-center",
   container: {
     sm: "mx-auto max-w-3xl min-w-0",
@@ -43,6 +43,12 @@ export const type = {
   navLink: "text-sm font-medium tracking-wide text-text/75 transition-colors hover:text-text",
   button: "text-sm font-semibold tracking-wide",
 } as const;
+
+/** Inline text mask over molecule background */
+const textBgBase = "[box-decoration-break:clone] [-webkit-box-decoration-break:clone]";
+
+export const textBgSage = `bg-sage ${textBgBase}`;
+export const textBgWhite = `bg-white ${textBgBase}`;
 
 /** Card surfaces */
 export const card = {

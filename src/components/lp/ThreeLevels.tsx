@@ -18,7 +18,7 @@ const levelIcons = [Heart, TrendingUp, Eye];
 
 export function ThreeLevels({ lang, t }: ThreeLevelsProps) {
   return (
-    <Section id="framework">
+    <Section id="framework" containerClassName="bg-white">
       <SectionHeader
         lang={lang}
         label={t.threeLevels.sectionLabel}
@@ -42,9 +42,7 @@ export function ThreeLevels({ lang, t }: ThreeLevelsProps) {
                       {level.number}
                     </span>
                     <h3 className={type.cardHeading}>
-                      <ProseText lang={lang} className="inline">
-                        {level.subtitle}
-                      </ProseText>
+                      <ProseText lang={lang}>{level.subtitle}</ProseText>
                     </h3>
                     <span className={type.metaSubtle}>— {level.title}</span>
                   </div>

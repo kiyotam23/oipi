@@ -5,9 +5,10 @@ import { getTranslation } from "@/lib/i18n";
 import { particlesEnabled } from "@/lib/features";
 import type { Language } from "@/types/i18n";
 import { BackgroundParallax } from "./BackgroundParallax";
-import { ParticlesBackground } from "./ParticlesBackground";
-import { ParticlesProviderRoot } from "./ParticlesProviderRoot";
-import { ReadabilityOverlay } from "./ReadabilityOverlay";
+import { FirstStepBackgroundImage } from "./FirstStepBackgroundImage";
+import { HeroBackgroundImage } from "./HeroBackgroundImage";
+import { MoleculeSvgBackground } from "./MoleculeSvgBackground";
+import { SageSectionBackgrounds } from "./SageSectionBackgrounds";
 import { Header } from "./Header";
 import { HeroSection } from "./HeroSection";
 import { CoreProcess } from "./CoreProcess";
@@ -27,28 +28,30 @@ export function LandingPage() {
   }, [lang]);
 
   return (
-    <ParticlesProviderRoot>
-      <div lang={lang} className="relative min-h-screen bg-white text-text">
+    <div key={lang} lang={lang} className="relative min-h-screen bg-white text-text">
+      <SageSectionBackgrounds />
+      <HeroBackgroundImage />
+      <FirstStepBackgroundImage />
+      <BackgroundParallax>
         {particlesEnabled && (
-          <BackgroundParallax>
-            <ParticlesBackground />
-            <ReadabilityOverlay />
-          </BackgroundParallax>
+          <div className="absolute inset-0 z-[1]">
+            <MoleculeSvgBackground />
+          </div>
         )}
-        <div className="relative z-10 min-w-0">
-          <Header lang={lang} t={t} onLangChange={setLang} />
-          <main className="min-w-0" key={lang}>
-            <HeroSection lang={lang} t={t} />
-            <CoreProcess lang={lang} t={t} />
-            <ThreeLevels lang={lang} t={t} />
-            <ActivityPillars lang={lang} t={t} />
-            <FirstStep lang={lang} t={t} />
-            <MissionSection lang={lang} t={t} />
-            <FounderStatement lang={lang} t={t} />
-          </main>
-          <Footer lang={lang} t={t} />
-        </div>
+      </BackgroundParallax>
+      <div className="relative z-10 min-w-0">
+        <Header lang={lang} t={t} onLangChange={setLang} />
+        <main className="min-w-0">
+          <HeroSection lang={lang} t={t} />
+          <CoreProcess lang={lang} t={t} />
+          <ThreeLevels lang={lang} t={t} />
+          <ActivityPillars lang={lang} t={t} />
+          <FirstStep lang={lang} t={t} />
+          <MissionSection lang={lang} t={t} />
+          <FounderStatement lang={lang} t={t} />
+        </main>
+        <Footer lang={lang} t={t} />
       </div>
-    </ParticlesProviderRoot>
+    </div>
   );
 }
