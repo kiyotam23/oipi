@@ -2,7 +2,7 @@
 
 import type { Language } from "@/types/i18n";
 import { cn } from "@/lib/cn";
-import { layout, sectionLabelClass, textBgSage, type } from "@/lib/styles";
+import { layout, mobileBlockBackdrop, mobileSageBlockBackdrop, sectionLabelClass, type } from "@/lib/styles";
 import { FadeInSection } from "./FadeInSection";
 import { ProseText, SectionTitle } from "./ProseText";
 
@@ -18,8 +18,8 @@ interface SectionHeaderProps {
   titleSpacing?: TitleSpacing;
   /** standard: mb-16 header block / plain: no outer spacing */
   variant?: "standard" | "plain";
-  textBg?: boolean;
-  textBgClass?: string;
+  /** Element-level backdrop below xl; sage sections use sage tint */
+  mobileBackdrop?: "white" | "sage" | "none";
   className?: string;
 }
 
@@ -31,36 +31,35 @@ export function SectionHeader({
   introWidth = "2xl",
   titleSpacing = "default",
   variant = "standard",
-  textBg = false,
-  textBgClass: textBgClassProp,
+  mobileBackdrop = "white",
   className,
 }: SectionHeaderProps) {
-  const textBgClass = textBg ? (textBgClassProp ?? textBgSage) : undefined;
   const introClass = cn(
     type.sectionIntro,
     "mx-auto",
     layout.introMax[introWidth === "3xl" ? "wide" : "default"],
   );
+  const backdrop =
+    mobileBackdrop === "sage"
+      ? mobileSageBlockBackdrop
+      : mobileBackdrop === "white"
+        ? mobileBlockBackdrop
+        : "";
 
   return (
     <FadeInSection
       className={cn(variant === "standard" && layout.sectionHeader, className)}
     >
-      <p className={sectionLabelClass}>
-        {textBgClass ? <span className={textBgClass}>{label}</span> : label}
-      </p>
+      <p className={cn(sectionLabelClass, backdrop)}>{label}</p>
       <SectionTitle
         lang={lang}
-        className={cn(type.sectionTitleMb[titleSpacing], type.sectionTitle)}
-        textBgClassName={textBgClass}
+        className={cn(type.sectionTitleMb[titleSpacing], type.sectionTitle, backdrop)}
       >
         {title}
       </SectionTitle>
       {intro && (
-        <p className={introClass}>
-          <ProseText lang={lang} className={textBgClass}>
-            {intro}
-          </ProseText>
+        <p className={cn(introClass, backdrop)}>
+          <ProseText lang={lang}>{intro}</ProseText>
         </p>
       )}
     </FadeInSection>

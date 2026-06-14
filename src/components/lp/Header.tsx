@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import type { TranslationContent } from "@/lib/i18n";
 import type { Language } from "@/types/i18n";
@@ -25,12 +24,7 @@ const navItems = [
 
 export function Header({ lang, t, onLangChange }: HeaderProps) {
   return (
-    <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="sticky top-0 z-50 border-b border-slate-100 bg-white/80 backdrop-blur-md"
-    >
+    <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center gap-3 px-6 py-4.5 lg:gap-4">
         <a href="#" className="group shrink-0">
           <TachibanaLogo
@@ -39,7 +33,7 @@ export function Header({ lang, t, onLangChange }: HeaderProps) {
           />
         </a>
 
-        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-4 lg:flex xl:gap-6">
+        <nav className="hidden min-w-0 flex-1 items-center justify-center gap-4 lg:flex xl:gap-6" aria-label="Main">
           {navItems.map((item) => (
             <a
               key={item.key}
@@ -62,6 +56,6 @@ export function Header({ lang, t, onLangChange }: HeaderProps) {
           </button>
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 }

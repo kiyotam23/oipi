@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface SageBand {
   id: string;
@@ -8,11 +9,17 @@ interface SageBand {
   height: number;
 }
 
-/** Full-width sage fills below molecule SVGs, synced to sage sections on scroll. */
+/** Full-width sage fills below molecule SVGs, synced to sage sections on scroll (desktop only). */
 export function SageSectionBackgrounds() {
+  const isDesktop = useMediaQuery("(min-width: 1280px)");
   const [bands, setBands] = useState<SageBand[]>([]);
 
   useEffect(() => {
+    if (!isDesktop) {
+      setBands([]);
+      return;
+    }
+
     let raf = 0;
 
     const sync = () => {
@@ -56,7 +63,9 @@ export function SageSectionBackgrounds() {
       observer.disconnect();
       mutation.disconnect();
     };
-  }, []);
+  }, [isDesktop]);
+
+  if (!isDesktop || bands.length === 0) return null;
 
   return (
     <>

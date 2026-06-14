@@ -15,12 +15,13 @@ interface ActivityPillarsProps {
 
 export function ActivityPillars({ lang, t }: ActivityPillarsProps) {
   return (
-    <Section id="activities" tone="sage" containerClassName="bg-sage">
+    <Section id="activities" tone="sage">
       <SectionHeader
         lang={lang}
         label={t.activities.sectionLabel}
         title={t.activities.title}
         intro={t.activities.intro || undefined}
+        mobileBackdrop="none"
       />
 
       <div className="grid min-w-0 gap-5 sm:grid-cols-2 lg:grid-cols-3">

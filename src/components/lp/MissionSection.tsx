@@ -22,6 +22,7 @@ export function MissionSection({ lang, t }: MissionSectionProps) {
         title={t.mission.title}
         titleSpacing="spacious"
         variant="plain"
+        mobileBackdrop="none"
       />
 
       <FadeInSection delay={0.1} className="space-y-6">

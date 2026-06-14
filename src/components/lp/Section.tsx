@@ -27,7 +27,7 @@ export function Section({
     <section
       id={id}
       data-sage-bg={tone === "sage" ? "" : undefined}
-      className={cn(tone === "sage" ? layout.sectionSage : layout.section, className)}
+      className={cn(layout.section, tone === "sage" && "bg-sage xl:bg-transparent", className)}
     >
       <div
         className={cn(layout.container[width], center && "text-center", containerClassName)}

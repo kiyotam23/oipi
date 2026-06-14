@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import type { TranslationContent } from "@/lib/i18n";
 import type { Language } from "@/types/i18n";
 import { color } from "@/lib/colors";
-import { inlineSectionLabelClass, type } from "@/lib/styles";
+import { inlineSectionLabelClass, mobileBlockBackdrop, mobileTextBackdrop, type } from "@/lib/styles";
 import { ProseText, SectionTitle } from "./ProseText";
 import { FadeInSection } from "./FadeInSection";
 interface FirstStepProps {
@@ -21,9 +21,12 @@ export function FirstStep({ lang, t }: FirstStepProps) {
       <div className="relative z-10 mx-auto max-w-6xl min-w-0 px-6">
         <FadeInSection>
           <div className="max-w-lg lg:max-w-[min(100%,480px)]">
-            <p className={`mb-3 ${inlineSectionLabelClass}`}>{t.firstStep.sectionLabel}</p>
+            <p className={`mb-3 ${inlineSectionLabelClass} ${mobileTextBackdrop}`}>{t.firstStep.sectionLabel}</p>
 
-            <SectionTitle lang={lang} className={`${type.sectionTitleMb.default} ${type.sectionTitle}`}>
+            <SectionTitle
+              lang={lang}
+              className={`${type.sectionTitleMb.default} ${type.sectionTitle} ${mobileBlockBackdrop}`}
+            >
               {t.firstStep.title}
             </SectionTitle>
 
@@ -33,7 +36,7 @@ export function FirstStep({ lang, t }: FirstStepProps) {
               aria-hidden
             />
 
-            <p className={`${type.proseBody} mb-8 max-w-md`}>
+            <p className={`${type.proseBody} mb-8 max-w-md ${mobileBlockBackdrop}`}>
               <ProseText lang={lang}>{t.firstStep.description}</ProseText>
             </p>
 

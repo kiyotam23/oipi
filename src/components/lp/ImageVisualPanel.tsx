@@ -15,15 +15,13 @@ interface ImageVisualPanelProps {
   sizes?: string;
   priority?: boolean;
   layout?: "split" | "stacked";
-  flipHorizontal?: boolean;
 }
 
 function PanelImage({
   src,
   sizes,
   priority,
-  flipHorizontal,
-}: Pick<ImageVisualPanelProps, "src" | "sizes" | "priority" | "flipHorizontal">) {
+}: Pick<ImageVisualPanelProps, "src" | "sizes" | "priority">) {
   const [ready, setReady] = useState(false);
 
   return (
@@ -37,7 +35,6 @@ function PanelImage({
       className={cn(
         "object-cover object-right transition-opacity duration-150",
         ready ? "opacity-100" : "opacity-0",
-        flipHorizontal && "-scale-x-100",
       )}
     />
   );
@@ -48,7 +45,6 @@ export function ImageVisualPanel({
   sizes = "(min-width: 1024px) 58vw, 100vw",
   priority = false,
   layout = "split",
-  flipHorizontal = false,
 }: ImageVisualPanelProps) {
   const mask = layout === "stacked" ? visualPanelMaskStacked : visualPanelMask;
   const edgeFade = layout === "stacked" ? visualPanelEdgeFadeStacked : visualPanelEdgeFade;
@@ -64,13 +60,7 @@ export function ImageVisualPanel({
           maskComposite: "intersect",
         }}
       >
-        <PanelImage
-          key={src}
-          src={src}
-          sizes={sizes}
-          priority={priority}
-          flipHorizontal={flipHorizontal}
-        />
+        <PanelImage key={src} src={src} sizes={sizes} priority={priority} />
       </div>
 
       <div

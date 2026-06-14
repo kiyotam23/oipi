@@ -12,7 +12,7 @@ interface TachibanaLogoProps {
 }
 
 export function TachibanaLogo({
-  line1 = "Okayama Psychedelic Psychiatric Institute",
+  line1 = "Okayama Institute of Psychedelic Integration",
   line2 = "岡山サイケデリック精神医療研究会",
   className = "",
 }: TachibanaLogoProps) {
@@ -20,10 +20,11 @@ export function TachibanaLogo({
     <div className={`flex items-center gap-4 ${className}`}>
       <OppiWordMark />
 
-      <div className="min-w-0 max-w-[9.5rem] font-sans select-none sm:max-w-[11rem] lg:max-w-[13rem] xl:max-w-xs">
+      <div className="min-w-0 max-w-[11rem] font-sans select-none sm:max-w-[13rem] lg:max-w-[15rem] xl:max-w-[17rem]">
         <p
           className={cn(
-            "mb-0.5 truncate text-[10px] leading-snug font-semibold tracking-wide sm:text-[11px]",
+            "mb-0.5 text-[10px] leading-snug font-semibold tracking-wide sm:text-[11px]",
+            "line-clamp-2 lg:line-clamp-none lg:whitespace-nowrap",
             color.text.labelMuted,
           )}
         >
@@ -31,7 +32,8 @@ export function TachibanaLogo({
         </p>
         <p
           className={cn(
-            "truncate text-xs leading-snug font-bold tracking-[0.04em] sm:text-[13px]",
+            "text-xs leading-snug font-bold tracking-[0.04em] sm:text-[13px]",
+            "line-clamp-2 lg:line-clamp-none lg:whitespace-nowrap",
             color.text.main,
           )}
         >

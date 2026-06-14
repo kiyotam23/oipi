@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function scrollParallaxOffset(scrollY: number, speed: number, acceleration: number): number {
+export function scrollParallaxOffset(scrollY: number, speed: number, acceleration: number): number {
   if (acceleration <= 0) return scrollY * speed;
 
   const maxScroll = Math.max(
@@ -13,7 +13,7 @@ function scrollParallaxOffset(scrollY: number, speed: number, acceleration: numb
 }
 
 /** Scroll-linked Y offset. acceleration > 0 eases into faster drift deeper on the page. */
-export function useScrollParallax(speed = 0.06, acceleration = 0) {
+export function useScrollParallax(speed = 0.06, acceleration = 0): number {
   const [offset, setOffset] = useState(0);
   const [enabled, setEnabled] = useState(true);
 

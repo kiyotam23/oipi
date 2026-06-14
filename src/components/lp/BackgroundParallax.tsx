@@ -1,7 +1,7 @@
 "use client";
 
-import type { ReactNode } from "react";
-import { useScrollParallax } from "@/hooks/useScrollParallax";
+import { useEffect, useRef, type ReactNode } from "react";
+import { scrollParallaxOffset } from "@/hooks/useScrollParallax";
 
 interface BackgroundParallaxProps {
   children: ReactNode;
@@ -12,7 +12,38 @@ const MOLECULE_PARALLAX_SPEED = -1.2;
 const MOLECULE_PARALLAX_ACCELERATION = 3;
 
 export function BackgroundParallax({ children }: BackgroundParallaxProps) {
-  const y = useScrollParallax(MOLECULE_PARALLAX_SPEED, MOLECULE_PARALLAX_ACCELERATION);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reducedMotion.matches) return;
+
+    let raf = 0;
+
+    const sync = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const el = innerRef.current;
+        if (!el) return;
+        const y = scrollParallaxOffset(
+          window.scrollY,
+          MOLECULE_PARALLAX_SPEED,
+          MOLECULE_PARALLAX_ACCELERATION,
+        );
+        el.style.transform = `translate3d(0, ${y}px, 0)`;
+      });
+    };
+
+    window.addEventListener("scroll", sync, { passive: true });
+    window.addEventListener("resize", sync);
+    sync();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", sync);
+      window.removeEventListener("resize", sync);
+    };
+  }, []);
 
   return (
     <div
@@ -20,11 +51,8 @@ export function BackgroundParallax({ children }: BackgroundParallaxProps) {
       aria-hidden
     >
       <div
-        className="absolute left-0 top-0 h-[200vh] w-full"
-        style={{
-          transform: `translate3d(0, ${y}px, 0)`,
-          willChange: "transform",
-        }}
+        ref={innerRef}
+        className="absolute left-0 top-0 h-[200vh] w-full will-change-transform"
       >
         {children}
       </div>

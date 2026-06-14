@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getTranslation } from "@/lib/i18n";
-import { particlesEnabled } from "@/lib/features";
+import { moleculesEnabled } from "@/lib/features";
 import type { Language } from "@/types/i18n";
 import { BackgroundParallax } from "./BackgroundParallax";
 import { FirstStepBackgroundImage } from "./FirstStepBackgroundImage";
@@ -28,18 +28,18 @@ export function LandingPage() {
   }, [lang]);
 
   return (
-    <div key={lang} lang={lang} className="relative min-h-screen bg-white text-text">
+    <div lang={lang} className="relative min-h-screen text-text">
       <SageSectionBackgrounds />
       <HeroBackgroundImage />
       <FirstStepBackgroundImage />
       <BackgroundParallax>
-        {particlesEnabled && (
+        {moleculesEnabled && (
           <div className="absolute inset-0 z-[1]">
             <MoleculeSvgBackground />
           </div>
         )}
       </BackgroundParallax>
-      <div className="relative z-10 min-w-0">
+      <div className="relative isolate z-20 min-w-0 transform-gpu">
         <Header lang={lang} t={t} onLangChange={setLang} />
         <main className="min-w-0">
           <HeroSection lang={lang} t={t} />

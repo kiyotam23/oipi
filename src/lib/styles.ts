@@ -3,7 +3,6 @@ import { color } from "./colors";
 /** Page section spacing and containers */
 export const layout = {
   section: "relative px-6 py-24",
-  sectionSage: "relative px-6 py-24",
   sectionHeader: "mb-16 text-center",
   container: {
     sm: "mx-auto max-w-3xl min-w-0",
@@ -44,15 +43,35 @@ export const type = {
   button: "text-sm font-semibold tracking-wide",
 } as const;
 
-/** Inline text mask over molecule background */
-const textBgBase = "[box-decoration-break:clone] [-webkit-box-decoration-break:clone]";
+/** Soft horizontal + vertical fade for section backdrops (use on absolute bg layer, not text). */
+export const softEdgeMask =
+  "[mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_72%,transparent_100%),linear-gradient(to_bottom,transparent_0%,black_6%,black_94%,transparent_100%)] [-webkit-mask-composite:source-in] [mask-composite:intersect]";
 
-export const textBgSage = `bg-sage ${textBgBase}`;
-export const textBgWhite = `bg-white ${textBgBase}`;
+export const heroSoftBackdrop = `pointer-events-none absolute inset-0 hidden bg-white xl:block ${softEdgeMask}`;
+
+/** Mobile hero: soft white wash fading to transparent (no card edges or shadow). */
+export const heroMobileSoftMask =
+  "[mask-image:linear-gradient(to_right,transparent_0%,black_6%,black_94%,transparent_100%),linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)] [-webkit-mask-composite:source-in] [mask-composite:intersect]";
+
+export const heroMobileBackdrop = `pointer-events-none absolute -inset-x-3 inset-y-0 z-0 block bg-white xl:hidden ${heroMobileSoftMask}`;
+
+export const sageSoftBackdrop = `pointer-events-none absolute inset-0 hidden bg-sage xl:block ${softEdgeMask}`;
+
+/** Per-element backdrop on mobile/tablet; section-level fills use xl: variants instead. */
+export const mobileTextBackdrop =
+  "rounded-lg bg-white/92 px-3 py-2 shadow-sm xl:rounded-none xl:bg-transparent xl:px-0 xl:py-0 xl:shadow-none";
+
+export const mobileSageTextBackdrop =
+  "rounded-lg bg-sage/95 px-3 py-2 xl:rounded-none xl:bg-transparent xl:px-0 xl:py-0";
+
+export const mobileBlockBackdrop =
+  "rounded-lg bg-white/92 px-4 py-3 shadow-sm xl:rounded-none xl:bg-transparent xl:px-0 xl:py-0 xl:shadow-none";
+
+export const mobileSageBlockBackdrop =
+  "rounded-lg bg-sage/95 px-4 py-3 xl:rounded-none xl:bg-transparent xl:px-0 xl:py-0";
 
 /** Card surfaces */
 export const card = {
-  base: "rounded-lg bg-white",
   padded: "rounded-lg bg-white p-8",
   paddedSm: "rounded-lg bg-white p-7",
   paddedCenter: "rounded-lg bg-white px-6 py-5 text-center",

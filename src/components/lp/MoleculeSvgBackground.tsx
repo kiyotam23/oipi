@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
-import { particlesEnabled } from "@/lib/features";
+import { moleculesEnabled } from "@/lib/features";
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
@@ -12,9 +12,9 @@ const MOLECULE_ASSETS = [
   { key: "psilocybin", src: "/molecules/Psilocybin.svg", bias: 1.7 },
   { key: "dmt", src: "/molecules/Dimethyltryptamine.svg", bias: 0.3 },
   { key: "meo-dmt", src: "/molecules/5-MeO-DMT.svg", bias: 2.2 },
-  { key: "lsd", src: "/molecules/LSD_Structure_V2.svg", bias: 0.85 },
-  { key: "mdma", src: "/molecules/MDMA.svg", bias: 1.4 },
-  { key: "ketamine", src: "/molecules/Ketamine.svg", bias: 1.1 },
+  { key: "lsd", src: "/molecules/LSD_Structure_V2.svg", bias: 1.8 },
+  { key: "mdma", src: "/molecules/MDMA.svg", bias: 1.6 },
+  { key: "ketamine", src: "/molecules/Ketamine.svg", bias: 1.2 },
 ] as const;
 
 const MOLECULE_SIZE_SCALE = 1.2;
@@ -23,6 +23,8 @@ const PARTICLE_MAX = 56;
 const PARTICLE_SIZE = Math.round(64 * MOLECULE_SIZE_SCALE);
 const PARTICLE_MIN_DIST = Math.round(88 * MOLECULE_SIZE_SCALE);
 const MOLECULE_OPACITY = 0.38;
+/** Fade out in the top portion of the viewport (0 → full opacity). */
+const FADE_ZONE_RATIO = 0.45;
 
 /** Hero text column (~540px) — right of this is open visual space */
 const TEXT_ZONE_RATIO = 0.46;
@@ -48,7 +50,6 @@ const MOLECULE_BG_CSS = `
   height: 100%;
   overflow: visible;
   vector-effect: non-scaling-stroke;
-  opacity: ${MOLECULE_OPACITY};
 }
 `;
 
@@ -116,9 +117,17 @@ function spawnPosition(
   rng: () => number,
   w: number,
   h: number,
-  zone: "left" | "right",
+  zone: "left" | "right" | "full",
 ): { x: number; y: number } {
   const half = PARTICLE_SIZE / 2;
+
+  if (zone === "full") {
+    return {
+      x: half + rng() * Math.max(0, w - PARTICLE_SIZE),
+      y: half + rng() * Math.max(0, h - PARTICLE_SIZE),
+    };
+  }
+
   const split = w * TEXT_ZONE_RATIO;
 
   const x =
@@ -135,8 +144,12 @@ function spawnPosition(
 }
 
 function particleCount(w: number, h: number): number {
-  const n = Math.floor((w * h) / 32_000);
-  return Math.min(PARTICLE_MAX, Math.max(PARTICLE_MIN, n));
+  const isMobile = w < 1280;
+  const areaDivisor = isMobile ? 52_000 : 32_000;
+  const min = isMobile ? 22 : PARTICLE_MIN;
+  const max = isMobile ? 34 : PARTICLE_MAX;
+  const n = Math.floor((w * h) / areaDivisor);
+  return Math.min(max, Math.max(min, n));
 }
 
 async function loadSvgMarkup(src: string): Promise<string> {
@@ -145,6 +158,19 @@ async function loadSvgMarkup(src: string): Promise<string> {
   const doc = new DOMParser().parseFromString(raw, "image/svg+xml");
   const svg = doc.querySelector("svg");
   if (!svg) return "";
+
+  if (!svg.getAttribute("viewBox")) {
+    const w = svg.getAttribute("width");
+    const h = svg.getAttribute("height");
+    if (w && h) {
+      const vw = Number.parseFloat(w);
+      const vh = Number.parseFloat(h);
+      if (Number.isFinite(vw) && Number.isFinite(vh) && vw > 0 && vh > 0) {
+        svg.setAttribute("viewBox", `0 0 ${vw} ${vh}`);
+      }
+    }
+  }
+
   svg.removeAttribute("width");
   svg.removeAttribute("height");
   svg.setAttribute("class", "molecule-bg__shape");
@@ -168,18 +194,22 @@ function spawnParticles(
   h: number,
   cache: Map<MoleculeKey, string>,
   sessionSeed: number,
+  embedded = false,
 ): Particle[] {
-  const count = particleCount(w, h);
+  const count = embedded ? 12 : particleCount(w, h);
   const particles: Particle[] = [];
-  const minDist = PARTICLE_MIN_DIST;
+  const minDist = embedded ? PARTICLE_MIN_DIST * 0.55 : PARTICLE_MIN_DIST;
   const kinds = buildShuffledKindQueue(count, sessionSeed);
 
   for (let i = 0; i < count; i++) {
     const kind = kinds[i];
     const layoutRng = mulberry32(sessionSeed ^ i * 9917);
     const motionRng = mulberry32(sessionSeed ^ i * 4523);
-    const zone: "left" | "right" =
-      layoutRng() < RIGHT_ZONE_SPAWN_BIAS ? "right" : "left";
+    const zone: "left" | "right" | "full" = embedded
+      ? "full"
+      : layoutRng() < RIGHT_ZONE_SPAWN_BIAS
+        ? "right"
+        : "left";
     const baseScale = 0.4 + layoutRng() * 0.6;
     const scale = baseScale * moleculeBias(kind);
     const markup = cache.get(kind);
@@ -217,6 +247,8 @@ function spawnParticles(
     container.appendChild(el);
 
     const motion = particleMotion(motionRng);
+    el.style.opacity = "0";
+    el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) rotate(${motion.angle}deg) scale(${scale})`;
     particles.push({
       el,
       x,
@@ -235,6 +267,26 @@ function wrap(v: number, max: number): number {
   return v;
 }
 
+function particleOpacity(screenY: number, fadeZone: number, scrollFade: number): number {
+  const positionFade = Math.max(0, Math.min(1, screenY / fadeZone));
+  return MOLECULE_OPACITY * positionFade * scrollFade;
+}
+
+function paintParticle(
+  p: Particle,
+  containerTop: number,
+  fadeZone: number,
+  scrollFade: number,
+  embedded: boolean,
+) {
+  const screenY = containerTop + p.y;
+  const opacity = embedded
+    ? MOLECULE_OPACITY * 1.15
+    : particleOpacity(screenY, fadeZone, scrollFade);
+  p.el.style.opacity = String(opacity);
+  p.el.style.transform = `translate(${p.x}px, ${p.y}px) translate(-50%, -50%) rotate(${p.angle}deg) scale(${p.scale})`;
+}
+
 function updateParticle(
   p: Particle,
   w: number,
@@ -242,6 +294,10 @@ function updateParticle(
   mx: number,
   my: number,
   mouseOn: boolean,
+  containerTop: number,
+  fadeZone: number,
+  scrollFade: number,
+  embedded = false,
 ) {
   if (mouseOn) {
     const dx = p.x - mx;
@@ -267,15 +323,24 @@ function updateParticle(
   p.y = wrap(p.y + p.vy, h);
   p.angle += p.spin;
 
-  p.el.style.transform = `translate(${p.x}px, ${p.y}px) translate(-50%, -50%) rotate(${p.angle}deg) scale(${p.scale})`;
+  paintParticle(p, containerTop, fadeZone, scrollFade, embedded);
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export function MoleculeSvgBackground() {
+interface MoleculeSvgBackgroundProps {
+  /** Scoped hero-gap field on mobile — fills parent, no scroll fade */
+  embedded?: boolean;
+  className?: string;
+}
+
+export function MoleculeSvgBackground({
+  embedded = false,
+  className,
+}: MoleculeSvgBackgroundProps = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const reducedMotion = usePrefersReducedMotion();
-  const enabled = particlesEnabled && !reducedMotion;
+  const enabled = moleculesEnabled && !reducedMotion;
 
   useEffect(() => {
     if (!enabled || !rootRef.current) return;
@@ -292,29 +357,73 @@ export function MoleculeSvgBackground() {
     let cache = new Map<MoleculeKey, string>();
     const sessionSeed = randomSeed();
 
+    let resizeRaf = 0;
+
     function measure() {
       const rect = container.getBoundingClientRect();
       w = rect.width;
       h = rect.height;
     }
 
+    function paintAll() {
+      const containerTop = container.getBoundingClientRect().top;
+      const fadeZone = window.innerHeight * FADE_ZONE_RATIO;
+      const scrollFade = Math.max(
+        0,
+        1 - window.scrollY / (window.innerHeight * 2.5),
+      );
+      for (const p of particles) {
+        paintParticle(p, containerTop, fadeZone, scrollFade, embedded);
+      }
+    }
+
     function rebuild() {
       container.querySelectorAll(".molecule-bg__particle").forEach((n) => n.remove());
       measure();
-      particles = spawnParticles(container, w, h, cache, sessionSeed);
+      if (w < 1 || h < 1) {
+        particles = [];
+        return;
+      }
+      particles = spawnParticles(container, w, h, cache, sessionSeed, embedded);
+      paintAll();
     }
 
     function tick() {
       if (!running) return;
+      const containerTop = container.getBoundingClientRect().top;
+      const fadeZone = window.innerHeight * FADE_ZONE_RATIO;
+      const scrollFade = Math.max(
+        0,
+        1 - window.scrollY / (window.innerHeight * 2.5),
+      );
       for (const p of particles) {
-        updateParticle(p, w, h, mx, my, mouseOn);
+        updateParticle(
+          p,
+          w,
+          h,
+          mx,
+          my,
+          mouseOn,
+          containerTop,
+          fadeZone,
+          scrollFade,
+          embedded,
+        );
       }
       raf = requestAnimationFrame(tick);
     }
 
     function onResize() {
-      rebuild();
+      cancelAnimationFrame(raf);
+      cancelAnimationFrame(resizeRaf);
+      resizeRaf = requestAnimationFrame(() => {
+        rebuild();
+        raf = requestAnimationFrame(tick);
+      });
     }
+
+    const resizeObserver = embedded ? new ResizeObserver(onResize) : null;
+    if (resizeObserver) resizeObserver.observe(container);
 
     function onMouseMove(e: MouseEvent) {
       const rect = container.getBoundingClientRect();
@@ -335,25 +444,35 @@ export function MoleculeSvgBackground() {
     })();
 
     window.addEventListener("resize", onResize);
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseleave", onMouseLeave);
+    if (!embedded) {
+      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener("mouseleave", onMouseLeave);
+    }
 
     return () => {
       running = false;
       cancelAnimationFrame(raf);
+      cancelAnimationFrame(resizeRaf);
+      resizeObserver?.disconnect();
       window.removeEventListener("resize", onResize);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseleave", onMouseLeave);
+      if (!embedded) {
+        window.removeEventListener("mousemove", onMouseMove);
+        window.removeEventListener("mouseleave", onMouseLeave);
+      }
       container.querySelectorAll(".molecule-bg__particle").forEach((n) => n.remove());
     };
-  }, [enabled]);
+  }, [enabled, embedded]);
 
   if (!enabled) return null;
 
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: MOLECULE_BG_CSS }} />
-      <div ref={rootRef} className="molecule-bg" aria-hidden />
+      <div
+        ref={rootRef}
+        className={embedded ? `absolute inset-0 overflow-hidden ${className ?? ""}` : "molecule-bg"}
+        aria-hidden
+      />
     </>
   );
 }

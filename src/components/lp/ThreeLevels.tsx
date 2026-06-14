@@ -3,7 +3,7 @@
 import { Heart, TrendingUp, Eye } from "lucide-react";
 import type { TranslationContent } from "@/lib/i18n";
 import type { Language } from "@/types/i18n";
-import { levelIconCushionClass, type } from "@/lib/styles";
+import { levelIconCushionClass, mobileBlockBackdrop, type } from "@/lib/styles";
 import { ProseText } from "./ProseText";
 import { FadeInSection } from "./FadeInSection";
 import { Section } from "./Section";
@@ -18,13 +18,14 @@ const levelIcons = [Heart, TrendingUp, Eye];
 
 export function ThreeLevels({ lang, t }: ThreeLevelsProps) {
   return (
-    <Section id="framework" containerClassName="bg-white">
+    <Section id="framework" containerClassName="xl:bg-white">
       <SectionHeader
         lang={lang}
         label={t.threeLevels.sectionLabel}
         title={t.threeLevels.title}
         intro={t.threeLevels.intro}
         introWidth="3xl"
+        mobileBackdrop="white"
       />
 
       <div className="space-y-6">
@@ -57,10 +58,10 @@ export function ThreeLevels({ lang, t }: ThreeLevelsProps) {
       </div>
 
       <FadeInSection delay={0.3} className="mt-16 space-y-6 text-center">
-        <p className={type.proseLead}>
+        <p className={`${type.proseLead} ${mobileBlockBackdrop}`}>
           <ProseText lang={lang}>{t.threeLevels.tradition}</ProseText>
         </p>
-        <p className={`${type.proseBody} mx-auto max-w-3xl`}>
+        <p className={`${type.proseBody} mx-auto max-w-3xl ${mobileBlockBackdrop}`}>
           <ProseText lang={lang}>{t.threeLevels.traditionDetail}</ProseText>
         </p>
       </FadeInSection>

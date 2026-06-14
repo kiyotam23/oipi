@@ -12,7 +12,7 @@ export const translations = {
     },
     header: {
       orgNameShort: "岡山サイケデリック精神医療研究会",
-      orgNameFull: "Okayama Psychedelic Psychiatric Institute",
+      orgNameFull: "Okayama Institute of Psychedelic Integration",
     },
     hero: {
       badge: "発足声明",
@@ -189,7 +189,7 @@ export const translations = {
       contact: "Contact",
     },
     header: {
-      orgNameShort: "Okayama Psychedelic Psychiatric Institute",
+      orgNameShort: "Okayama Institute of Psychedelic Integration",
       orgNameFull: "岡山サイケデリック精神医療研究会",
     },
     hero: {
